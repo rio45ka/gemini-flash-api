@@ -3,16 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tanya KAMI</title>
+  <title>Kawan Belajar AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="app-shell">
-    <section class="chat-panel" aria-label="Tanya KAMI Chatbot">
+    <aside class="settings-panel" aria-label="Konfigurasi chatbot">
+      <div class="brand">
+        <p class="eyebrow">AI Education Bot</p>
+        <h1>Kawan Belajar AI</h1>
+      </div>
+
+      <div class="field-group">
+        <label for="toneSelect">Gaya bahasa</label>
+        <select id="toneSelect">
+          <option value="mentor" selected>Mentor</option>
+          <option value="santai">Santai</option>
+          <option value="formal">Formal</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="levelSelect">Level</label>
+        <select id="levelSelect">
+          <option value="pemula" selected>Pemula</option>
+          <option value="menengah">Menengah</option>
+          <option value="lanjut">Lanjut</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="focusSelect">Fokus materi</label>
+        <select id="focusSelect">
+          <option value="umum" selected>Umum</option>
+          <option value="programming">Programming</option>
+          <option value="matematika">Matematika</option>
+          <option value="english">Bahasa Inggris</option>
+          <option value="produktivitas">Produktivitas</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="goalInput">Target belajar</label>
+        <input id="goalInput" type="text" placeholder="Contoh: paham dasar JavaScript">
+      </div>
+
+      <div class="field-group">
+        <label for="memoryInput">Memory</label>
+        <textarea id="memoryInput" rows="5" placeholder="Contoh: Saya suka contoh visual dan baru belajar coding."></textarea>
+      </div>
+
+      <div class="quick-prompts" aria-label="Contoh pertanyaan">
+        <button type="button" data-prompt="Buatkan rencana belajar 7 hari untuk memahami JavaScript dasar.">Rencana 7 hari</button>
+        <button type="button" data-prompt="Jelaskan konsep ini seperti untuk pemula, lalu berikan latihan singkat.">Jelaskan konsep</button>
+        <button type="button" data-prompt="Bantu saya debug error ini dan jelaskan penyebabnya.">Debug kode</button>
+      </div>
+    </aside>
+
+    <section class="chat-panel" aria-label="Percakapan Kawan Belajar AI">
       <header class="chat-header">
         <div>
-          <p class="eyebrow">Tanya KAMI chatbot</p>
-          <h1>Kamu bisa tanya apa saja!</h1>
+          <p class="eyebrow">Tutor personal</p>
+          <h2>Belajar dengan jawaban yang disesuaikan</h2>
         </div>
         <button class="ghost-button" id="clearButton" type="button" title="Hapus percakapan">
           Clear
@@ -21,9 +73,9 @@
 
       <div class="messages" id="messages" aria-live="polite">
         <article class="message bot">
-          <div class="avatar" aria-hidden="true">B</div>
+          <div class="avatar" aria-hidden="true">K</div>
           <div class="bubble">
-            <p>Halo! Kirim pertanyaan apa saja, nanti saya jawab dalam bahasa Indonesia.</p>
+            <p>Halo! Aku Kawan Belajar AI. Pilih gaya, level, dan fokus materi, lalu tanyakan materi yang ingin kamu pelajari.</p>
           </div>
         </article>
       </div>
@@ -34,7 +86,7 @@
           id="messageInput"
           name="message"
           rows="1"
-          placeholder="Tulis pesan..."
+          placeholder="Tulis pertanyaan belajar..."
           autocomplete="off"
           required
         ></textarea>
