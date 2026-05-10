@@ -1,29 +1,49 @@
-# Gemini Flash API
+# Kawan Belajar AI
 
-A small Express API for generating text and multimodal responses with Google's Gemini Flash model.
+Kawan Belajar AI adalah chatbot berbasis Gemini untuk membantu pengguna belajar dalam bahasa Indonesia. Use case utama project ini adalah **education bot / personal tutor** yang dapat menyesuaikan gaya jawaban berdasarkan konfigurasi pengguna.
 
-## Features
+## Fitur
 
-- Generate text from a prompt
-- Generate responses from an image and prompt
-- Generate responses from a document and prompt
-- Generate audio transcripts or audio-based responses
+- Chatbot AI menggunakan model `gemini-2.5-flash`
+- Web chat interface dari folder `public`
+- Endpoint API `POST /api/chat`
+- Konfigurasi kreatif:
+  - Gaya bahasa: mentor, santai, formal
+  - Level pengguna: pemula, menengah, lanjut
+  - Fokus materi: umum, programming, matematika, bahasa Inggris, produktivitas
+  - Target belajar pengguna
+  - Memory lokal untuk preferensi belajar
+- Quick prompt untuk rencana belajar, penjelasan konsep, dan debugging kode
+- Pengaturan pengguna tersimpan di `localStorage`
 
 ## Tech Stack
 
 - Node.js
 - Express
-- Multer
 - Google Gen AI SDK
 - dotenv
+- HTML, CSS, JavaScript
 
-## Requirements
+## Struktur Folder
 
-- Node.js 18 or newer
-- npm
-- Gemini API key
+```text
+gemini-chatbot-api/
+├── index.js
+├── package.json
+├── public/
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+└── README.md
+```
 
-## Installation
+## Instalasi
+
+Masuk ke folder project:
+
+```bash
+cd gemini-chatbot-api
+```
 
 Install dependencies:
 
@@ -31,34 +51,32 @@ Install dependencies:
 npm install
 ```
 
-Create a `.env` file in the project root:
+Buat file `.env`:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-## Running The Server
+## Menjalankan Project
 
-Start the API:
+Jalankan server:
 
 ```bash
 node index.js
 ```
 
-The server runs on:
+Buka web chatbot:
 
 ```text
 http://localhost:3000
 ```
 
-## API Endpoints
+## API Endpoint
 
-### Generate Text
-
-Generates text from a prompt.
+### Chat
 
 ```http
-POST /generate-text
+POST /api/chat
 Content-Type: application/json
 ```
 
@@ -66,95 +84,31 @@ Request body:
 
 ```json
 {
-  "prompt": "Explain how artificial intelligence works in simple terms."
+  "conversation": [
+    {
+      "role": "user",
+      "text": "Jelaskan konsep variable di JavaScript untuk pemula."
+    }
+  ],
+  "settings": {
+    "tone": "mentor",
+    "level": "pemula",
+    "focus": "programming",
+    "goal": "Paham dasar JavaScript",
+    "memory": "Saya baru belajar coding dan suka contoh sederhana."
+  }
 }
 ```
 
-Example:
-
-```bash
-curl -X POST http://localhost:3000/generate-text \
-  -H "Content-Type: application/json" \
-  -d '{"prompt":"Explain how artificial intelligence works in simple terms."}'
-```
-
-### Generate From Image
-
-Generates a response from an uploaded image and prompt.
-
-```http
-POST /generate-from-image
-Content-Type: multipart/form-data
-```
-
-Form fields:
-
-- `prompt`: text prompt
-- `image`: image file
-
-Example:
-
-```bash
-curl -X POST http://localhost:3000/generate-from-image \
-  -F "prompt=Describe this image." \
-  -F "image=@/path/to/image.jpg"
-```
-
-### Generate From Document
-
-Generates a response from an uploaded document and prompt.
-
-```http
-POST /generate-from-document
-Content-Type: multipart/form-data
-```
-
-Form fields:
-
-- `prompt`: text prompt
-- `document`: document file
-
-Example:
-
-```bash
-curl -X POST http://localhost:3000/generate-from-document \
-  -F "prompt=Summarize this document." \
-  -F "document=@/path/to/document.pdf"
-```
-
-### Generate From Audio
-
-Generates a response from an uploaded audio file. If no prompt is provided, the API asks Gemini to create a transcript.
-
-```http
-POST /generate-from-audio
-Content-Type: multipart/form-data
-```
-
-Form fields:
-
-- `prompt`: optional text prompt
-- `audio`: audio file
-
-Example:
-
-```bash
-curl -X POST http://localhost:3000/generate-from-audio \
-  -F "prompt=Create a transcript of this audio." \
-  -F "audio=@/path/to/audio.mp3"
-```
-
-## Response Format
-
-Successful responses return:
+Response sukses:
 
 ```json
 {
-  "result": "Generated response text"
+  "result": "Jawaban dari Gemini..."
 }
 ```
 
-Error responses return:
+Response error:
 
 ```json
 {
@@ -162,17 +116,58 @@ Error responses return:
 }
 ```
 
-## Project Structure
+## Konfigurasi Parameter
+
+### `tone`
+
+Mengatur gaya bahasa dan temperature model.
 
 ```text
-.
-├── index.js
-├── package.json
-├── package-lock.json
-└── README.md
+mentor = hangat, jelas, memotivasi
+santai = santai dan suportif
+formal = rapi dan profesional
 ```
 
-## Notes
+### `level`
 
-- The API currently uses the `gemini-2.5-flash` model.
-- Uploaded files are handled in memory by Multer and are not saved to disk by these endpoints.
+Mengatur kedalaman penjelasan.
+
+```text
+pemula = analogi sederhana dan minim jargon
+menengah = praktis dengan contoh
+lanjut = lebih teknis dan mendalam
+```
+
+### `focus`
+
+Mengatur domain jawaban chatbot.
+
+```text
+umum
+programming
+matematika
+english
+produktivitas
+```
+
+### `goal`
+
+Target belajar pengguna, misalnya:
+
+```text
+Paham dasar JavaScript dalam 7 hari
+```
+
+### `memory`
+
+Preferensi atau konteks pengguna yang dikirim ke model, misalnya:
+
+```text
+Saya suka penjelasan singkat, contoh visual, dan latihan kecil.
+```
+
+## Catatan
+
+- Chatbot diarahkan untuk selalu menjawab dalam bahasa Indonesia.
+- Memory disimpan di browser menggunakan `localStorage`, bukan database.
+- File `.env`, `node_modules/`, dan `package-lock.json` diabaikan oleh git melalui `.gitignore` root project.
