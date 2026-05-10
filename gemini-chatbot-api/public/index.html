@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tanya KAMI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="chat-panel" aria-label="Tanya KAMI Chatbot">
+      <header class="chat-header">
+        <div>
+          <p class="eyebrow">Tanya KAMI chatbot</p>
+          <h1>Kamu bisa tanya apa saja!</h1>
+        </div>
+        <button class="ghost-button" id="clearButton" type="button" title="Hapus percakapan">
+          Clear
+        </button>
+      </header>
+
+      <div class="messages" id="messages" aria-live="polite">
+        <article class="message bot">
+          <div class="avatar" aria-hidden="true">B</div>
+          <div class="bubble">
+            <p>Halo! Kirim pertanyaan apa saja, nanti saya jawab dalam bahasa Indonesia.</p>
+          </div>
+        </article>
+      </div>
+
+      <form class="composer" id="chatForm">
+        <label class="sr-only" for="messageInput">Tulis pesan</label>
+        <textarea
+          id="messageInput"
+          name="message"
+          rows="1"
+          placeholder="Tulis pesan..."
+          autocomplete="off"
+          required
+        ></textarea>
+        <button class="send-button" id="sendButton" type="submit" title="Kirim pesan">
+          <span>Kirim</span>
+        </button>
+      </form>
+
+      <p class="status" id="status" role="status"></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
